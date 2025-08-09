@@ -1,12 +1,24 @@
 from fastapi import FastAPI
-from .routers import predict, admin, quantum
+from fastapi.middleware.cors import CORSMiddleware
+import os
 
-app = FastAPI(title="Quantum-AI Medical Diagnosis API", version="1.0.0")
+app = FastAPI(title="Quantum-AI")
 
-app.include_router(admin.router)
-app.include_router(predict.router)
-app.include_router(quantum.router)
+# 1) exact origins list (comma-separated) from env
+FRONTEND_ORIGINS = os.getenv(
+    "FRONTEND_ORIGINS",
+    "http://localhost:5173,http://127.0.0.1:5173"
+)
+allowed_origins = [o.strip() for o in FRONTEND_ORIGINS.split(",") if o.strip()]
 
-@app.get("/")
-def root():
-    return {"message": "Welcome to Quantum-AI Medical Diagnosis API"}
+# 2) if you need to allow dynamic preview URLs (like webcontainer), use regex:
+ALLOW_ORIGIN_REGEX = os.getenv("ALLOW_ORIGIN_REGEX", "")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=allowed_origins,        # exact list (recommended)
+    allow_origin_regex=ALLOW_ORIGIN_REGEX or None,  # optional regex for wildcard origins
+    allow_credentials=False,
+    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_headers=["*"],
+)
