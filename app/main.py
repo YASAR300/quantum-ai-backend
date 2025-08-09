@@ -9,22 +9,13 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# ✅ CORS setup (Routers se pehle)
-FRONTEND_ORIGINS = os.getenv(
-    "FRONTEND_ORIGINS",
-    "http://localhost:5173,http://127.0.0.1:5173,https://quantum-ai-izi2.onrender.com/"
-)
-allowed_origins = [o.strip() for o in FRONTEND_ORIGINS.split(",") if o.strip()]
-
-ALLOW_ORIGIN_REGEX = os.getenv("ALLOW_ORIGIN_REGEX", "")
-
+# ✅ CORS setup (allow all origins for testing)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=allowed_origins,          # Specific origins
-    allow_origin_regex=ALLOW_ORIGIN_REGEX or None,  # Optional regex for dynamic origins
-    allow_credentials=False,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_origins=["*"],  # Allow all origins
+    allow_credentials=True,  # Allow credentials (like cookies)
+    allow_methods=["*"],  # Allow all methods (GET, POST, etc.)
+    allow_headers=["*"],  # Allow all headers
 )
 
 # ✅ Routers
@@ -36,7 +27,6 @@ app.include_router(quantum.router)
 def root():
     return {"message": "Welcome to Quantum-AI Medical Diagnosis API"}
 
-# ✅ Health endpoint (CORS check ke liye)
 @app.get("/health")
 def health():
     return {"status": "ok"}
