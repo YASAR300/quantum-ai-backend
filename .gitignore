@@ -1,0 +1,83 @@
+# -------------------
+# Python
+# -------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+*.so
+
+# C extensions
+*.c
+*.cpp
+
+# -------------------
+# Environment files
+# -------------------
+.env
+.env.*
+!.env.example  # example file allow
+
+# -------------------
+# Virtual environment
+# -------------------
+.venv/
+venv/
+ENV/
+env.bak/
+env/
+
+# -------------------
+# Build & Distribution
+# -------------------
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# -------------------
+# Logs & Debug
+# -------------------
+*.log
+*.out
+*.err
+logs/
+log/
+
+# -------------------
+# Jupyter Notebook
+# -------------------
+.ipynb_checkpoints
+
+# -------------------
+# Pytest & Coverage
+# -------------------
+.coverage
+.coverage.*
+.cache
+.pytest_cache/
+htmlcov/
+
+# -------------------
+# IDE & Editor files
+# -------------------
+.vscode/
+.idea/
+*.iml
+*.sublime-project
+*.sublime-workspace
+
+# -------------------
+# macOS / Windows
+# -------------------
+.DS_Store
+Thumbs.db
+
+# -------------------
+# Data & Artifacts
+# -------------------
+/data/*
+!/data/.gitkeep
+/artifacts/*
+!/artifacts/.gitkeep
